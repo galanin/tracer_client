@@ -1,0 +1,2 @@
+class ApiRequestFailureAlert < ApiRequestFailureLog
+end

@@ -1,0 +1,2 @@
+class LogicError < ApplicationError
+end

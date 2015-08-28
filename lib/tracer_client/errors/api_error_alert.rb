@@ -1,0 +1,2 @@
+class ApiErrorAlert < ApiErrorLog
+end

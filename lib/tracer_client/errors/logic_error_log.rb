@@ -1,0 +1,2 @@
+class LogicErrorLog < LogicError
+end

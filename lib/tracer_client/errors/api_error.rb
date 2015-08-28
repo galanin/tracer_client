@@ -1,0 +1,2 @@
+class ApiError < ApplicationError
+end
