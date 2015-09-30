@@ -18,12 +18,12 @@ module Tracer
 
 
       def log(notice)
-        LogJob.new.perform(notice.merge(request_log_data))
+        Tracer::Server.log(notice.merge(request_log_data))
       end
 
 
       def log_changes(changes)
-        LogChangesJob.new.perform(changes.merge(request_changes_data))
+        Tracer::Server.log_changes(changes.merge(request_changes_data))
       end
 
 
