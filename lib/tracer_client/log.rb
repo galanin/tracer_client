@@ -8,7 +8,7 @@ module Log
   SEVERITIES = %i(debug info notice warn error crit alert emerg)
   FACILITIES = %i(request lib auth user product order line_item delivery odkl email direct_mail page exception)
 
-  ROBOT_UA_FRAGMENTS = /AhrefsBot|bingbot|DotBot|Googlebot|Mail.RU_Bot|MJ12bot|msnbot|SputnikBot|updown_tester|Web-Monitoring|WebMasterAid|YaDirectFetcher|YandexBot/
+  ROBOT_UA_FRAGMENTS = /AhrefsBot|bingbot|DotBot|Googlebot|Mail.RU_Bot|MJ12bot|msnbot|SputnikBot|updown_tester|Web-Monitoring|WebMasterAid|YaDirectFetcher|Yahoo! Slurp|YandexBot/
 
 
   def self.start_request(current_user, request, params, session, do_log_request)
