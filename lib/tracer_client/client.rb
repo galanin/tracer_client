@@ -18,12 +18,16 @@ module Tracer
 
 
       def log(notice)
-        Tracer::Server.log(notice.merge(request_log_data))
+        Thread.new do
+          Tracer::Server.log(notice.merge(request_log_data))
+        end
       end
 
 
       def log_changes(changes)
-        Tracer::Server.log_changes(changes.merge(request_changes_data))
+        Thread.new do
+          Tracer::Server.log_changes(changes.merge(request_changes_data))
+        end
       end
 
 
@@ -96,26 +100,6 @@ module Tracer
         request_data
       end
 
-    end
-
-
-    private
-
-
-    class LogJob
-      include SuckerPunch::Job
-
-      def perform(notice)
-        Tracer::Server.log(notice)
-      end
-    end
-
-    class LogChangesJob
-      include SuckerPunch::Job
-
-      def perform(changes)
-        Tracer::Server.log_changes(changes)
-      end
     end
 
   end
