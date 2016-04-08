@@ -57,8 +57,12 @@ module Log
 
 
   def self.exception(exception, subject, tags = '', data = {})
-    exception_message(exception, :crit, subject, tags, data, exception.backtrace)
-    exception
+    if Rails.env.development?
+      raise exception
+    else
+      exception_message(exception, :crit, subject, tags, data, exception.backtrace)
+      exception
+    end
   end
 
 
