@@ -18,7 +18,7 @@ module Tracer
               [changes_logging_options[k]].flatten.compact.map { |attr| attr.is_a?(Hash) ? attr.stringify_keys : attr.to_s }
         end
 
-        options_on = Array(options[:on]) # so that a single symbol can be passed in without wrapping it in an `Array`
+        options_on = Array.wrap(options[:on]) # so that a single symbol can be passed in without wrapping it in an `Array`
 
         after_create  :log_create, :if => :log_changes? if options_on.empty? || options_on.include?(:create)
 
@@ -44,7 +44,7 @@ module Tracer
             event:     'create',
             changes:   changes_for_tracing,
         )
-      rescue Exception => e
+      rescue => e
         Log.exception_with_alert(e, 'Ошибка регистрации создания', 'log_changes create',
                                  item_id:   id,
                                  item_type: self.class.base_class.name)
@@ -61,7 +61,7 @@ module Tracer
               changes:   changes_for_tracing,
           )
         end
-      rescue Exception => e
+      rescue => e
         Log.exception_with_alert(e, 'Ошибка регистрации изменения', 'log_changes update',
                                  item_id:   id,
                                  item_type: self.class.base_class.name)
@@ -77,7 +77,7 @@ module Tracer
               object:    object_attrs_for_tracing(item_before_change),
           )
         end
-      rescue Exception => e
+      rescue => e
         Log.exception_with_alert(e, 'Ошибка регистрации удаления', 'log_changes destroy',
                                  item_id:   id,
                                  item_type: self.class.base_class.name)
@@ -127,7 +127,7 @@ module Tracer
         previous = self.dup
         # `dup` clears timestamps so we add them back.
         all_timestamp_attributes.each do |column|
-          previous[column] = send(column) if self.class.column_names.include?(column.to_s) and not send(column).nil?
+          previous[column] = send(column) if self.class.column_names.include?(column.to_s) and not try(column).nil?
         end
         previous.tap do |prev|
           prev.id = id # `dup` clears the `id` so we add that back
