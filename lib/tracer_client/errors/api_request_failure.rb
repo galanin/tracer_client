@@ -1,3 +1,5 @@
+require 'api_error'
+
 class ApiRequestFailure < ApiError
 
   def initialize(subject, tags, response, data = {})

@@ -1,3 +1,5 @@
+require 'tracer_client/server'
+
 module Tracer
   module Client
 

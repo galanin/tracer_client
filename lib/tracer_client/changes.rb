@@ -1,3 +1,5 @@
+require 'tracer_client/client'
+
 module Tracer
   module Changes
 

@@ -1,4 +1,5 @@
 require 'config'
+require 'tracer_client/client'
 
 module Log
 
