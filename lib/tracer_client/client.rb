@@ -20,15 +20,17 @@ module Tracer
 
 
       def log(notice)
+        data = notice.merge(request_log_data)
         Thread.new do
-          Tracer::Server.log(notice.merge(request_log_data))
+          Tracer::Server.log(data)
         end
       end
 
 
       def log_changes(changes)
+        data = changes.merge(request_changes_data)
         Thread.new do
-          Tracer::Server.log_changes(changes.merge(request_changes_data))
+          Tracer::Server.log_changes(data)
         end
       end
 
@@ -38,7 +40,7 @@ module Tracer
 
       def get_params(params)
         @parameter_filter ||= ActionDispatch::Http::ParameterFilter.new Rails.application.config.filter_parameters
-        @parameter_filter.filter(params.except(:utf8, :authenticity_token, :_method)).symbolize_keys
+        @parameter_filter.filter(params.except(:utf8, :authenticity_token, :_method)).to_unsafe_hash
       end
 
 
