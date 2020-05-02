@@ -4,13 +4,17 @@ module Tracer
   module Server
 
     def self.log(notice_hash)
-      send("http://#{Settings.tracer.host}:#{Settings.tracer.port}/api/v3/projects/#{Settings.tracer.project}/notices?api_key=#{Settings.tracer.api_key}", notice_hash)
+      if Rails.env.production? && !ENV['NO_TRACER'].to_b || Rails.env.development? && ENV['TRACER'].to_b
+        send("http://#{Settings.tracer.host}:#{Settings.tracer.port}/api/v3/project/#{Settings.tracer.project}/notices?api_key=#{Settings.tracer.api_key}", notice_hash)
+      end
     end
 
 
     def self.log_changes(changes_hash)
       Rails.logger.debug "Log change: #{changes_hash.inspect}"
-      send("http://#{Settings.tracer.host}:#{Settings.tracer.port}/api/v3/projects/#{Settings.tracer.project}/changes?api_key=#{Settings.tracer.api_key}", changes_hash)
+      if Rails.env.production? && !ENV['NO_TRACER'].to_b || Rails.env.development? && ENV['TRACER'].to_b
+        send("http://#{Settings.tracer.host}:#{Settings.tracer.port}/api/v3/projects/#{Settings.tracer.project}/changes?api_key=#{Settings.tracer.api_key}", changes_hash)
+      end
     end
 
 
