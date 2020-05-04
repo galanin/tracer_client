@@ -46,6 +46,16 @@ rescue => e
 end
 ```
 
+To cancel sending log messages in production mode you should use the environment variable NO_TRACER with a truthy value (true, TRUE, 1, etc).
+```ruby
+ENV['NO_TRACER'] - true
+```
+
+In a development mode sending messages is disabled by default. Sending messages can be re-enabled using a TRACER environment variable with a truthy value.
+```ruby
+ENV['TRACER'] - true
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
