@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'config', '~> 1.0'
   spec.add_dependency 'rails', '~> 5.0'
+  spec.add_dependency('wannabe_bool', '~> 0.7.1')
 
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
