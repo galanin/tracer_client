@@ -132,7 +132,8 @@ module Log
 
 
   def self.log?(severity)
-    Settings.log.severity_level.nil? || enabled_severity?(severity, Settings.log.severity_level)
+    (Rails.env.production? && !ENV['NO_TRACER'].to_b || ENV['TRACER'].to_b) &&
+      (Settings.log.severity_level.nil? || enabled_severity?(severity, Settings.log.severity_level))
   end
 
   def self.enabled_severity?(message_severity, configured_severity)
